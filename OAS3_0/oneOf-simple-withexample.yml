@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Simple Pets API
   description: |-
-    This is a sample Pets API showcasing oneOf for mixed arrays
+    This is a sample Pets API showcasing some `oneOf` scenarios
   version: 0.0.1
 tags:
   - name: pets
@@ -22,6 +22,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Pets'
+  /animals:
+    get:
+      tags:
+        - pets
+      summary: Get pets from catalog
+      description: Returns a list of pets found on the server
+      operationId: getAnimals
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                oneOf: 
+                  - $ref: '#/components/schemas/Cat1'
+                  - $ref: '#/components/schemas/Dog1'            
 components:
   schemas:
     Dog:
@@ -48,3 +64,17 @@ components:
         oneOf:
           - $ref: '#/components/schemas/Cat'
           - $ref: '#/components/schemas/Dog' 
+    Animal:
+      type: object
+      properties:
+        breed:
+          type: string
+          example: poodle
+    Cat1:
+      type: array
+      items:
+        $ref: '#/components/schemas/Animal'
+    Dog1:
+      type: array
+      items:
+        $ref: '#/components/schemas/Animal'  
