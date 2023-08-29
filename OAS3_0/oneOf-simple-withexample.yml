@@ -1,0 +1,50 @@
+openapi: 3.0.3
+info:
+  title: Simple Pets API
+  description: |-
+    This is a sample Pets API showcasing oneOf for mixed arrays
+  version: 0.0.1
+tags:
+  - name: pets
+    description: Everything about your Pets
+paths:
+  /pets:
+    get:
+      tags:
+        - pets
+      summary: Get pets from catalog
+      description: Returns a list of pets found on the server
+      operationId: getPets
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pets'
+components:
+  schemas:
+    Dog:
+      type: object
+      properties:
+        barks:
+          type: boolean
+          example: true
+        likesFetch:
+          type: boolean
+          example: true
+    Cat:
+      type: object
+      properties:
+        meows:
+          type: boolean
+          example: true
+        likesFetch:
+          type: boolean
+          example: false
+    Pets:
+      type: array
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/Cat'
+          - $ref: '#/components/schemas/Dog' 
