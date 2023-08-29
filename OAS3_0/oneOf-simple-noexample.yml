@@ -1,0 +1,75 @@
+openapi: 3.0.3
+info:
+  title: Simple Pets API
+  description: |-
+    This is a sample Pets API showcasing some `oneOf` scenarios
+  version: 0.0.1
+tags:
+  - name: pets
+    description: Everything about your Pets
+paths:
+  /pets:
+    get:
+      tags:
+        - pets
+      summary: Get pets from catalog
+      description: Returns a list of pets found on the server
+      operationId: getPets
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pets'
+  /animals:
+    get:
+      tags:
+        - pets
+      summary: Get pets from catalog
+      description: Returns a list of pets found on the server
+      operationId: getAnimals
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                oneOf: 
+                  - $ref: '#/components/schemas/Cat1'
+                  - $ref: '#/components/schemas/Dog1'            
+components:
+  schemas:
+    Dog:
+      type: object
+      properties:
+        barks:
+          type: boolean
+        likesFetch:
+          type: boolean
+    Cat:
+      type: object
+      properties:
+        meows:
+          type: boolean
+        likesFetch:
+          type: boolean
+    Pets:
+      type: array
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/Cat'
+          - $ref: '#/components/schemas/Dog' 
+    Animal:
+      type: object
+      properties:
+        breed:
+          type: string
+    Cat1:
+      type: array
+      items:
+        $ref: '#/components/schemas/Animal'
+    Dog1:
+      type: array
+      items:
+        $ref: '#/components/schemas/Animal'    
