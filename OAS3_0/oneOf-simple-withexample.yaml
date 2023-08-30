@@ -26,8 +26,8 @@ paths:
     get:
       tags:
         - pets
-      summary: Get pets from catalog
-      description: Returns a list of pets found on the server
+      summary: Get animals from catalog
+      description: Returns a list of animals found on the server
       operationId: getAnimals
       responses:
         '200':
