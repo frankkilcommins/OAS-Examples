@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Speakers API Fragment
+paths:
+  '/speakers/{name}':
+    get:
+      summary: Select a Speaker
+      description: Get a speaker based on their name
+      tags:
+        - speakers
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the speaker to be selected.
+          schema:
+            type: string
+            maxLength: 100
+            minLength: 1
+            pattern: '^[a-zA-Z-\s]+$'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    maxLength: 20
+                    minLength: 1
+                    example: success
+                additionalProperties: false
+        406:
+          description: Not Acceptable
+        429:
+          description: Too Many Requests 
